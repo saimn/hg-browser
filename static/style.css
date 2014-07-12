@@ -1,13 +1,9 @@
-
 /* Space out content a bit */
 body {
   padding-top: 20px;
   padding-bottom: 20px;
-  line-height: 1.5;
-  font-size: 16px;
 }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
 .header, .footer {
   padding-right: 15px;
   padding-left: 15px;
@@ -32,11 +28,6 @@ body {
   border-top: 1px solid #e5e5e5;
 }
 
-/* .list-group-item .date { */
-/*   float: right; */
-/*   margin-right: 20px; */
-/* } */
-
 /* Customize container */
 @media (min-width: 768px) {
   .container {
@@ -50,8 +41,7 @@ body {
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   /* Remove the padding we set earlier */
-  .header,
-  .footer {
+  .header, .footer {
     padding-right: 0;
     padding-left: 0;
   }
@@ -60,3 +50,4 @@ body {
     margin-bottom: 30px;
   }
 }
+

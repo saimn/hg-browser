@@ -16,50 +16,31 @@
         <li><a href="#">About</a></li>
         <li><a href="#">Contact</a></li>
       </ul>
-      <h3 class="text-muted">Hg repository browser</h3>
+      <h3 class="text-muted">Mercurial Repositories</h3>
     </div>
 
-    <div id="app">
-      <header>
-        <h1>Repositories</h1>
-      </header>
-
-      <section id="repo-list">
-        <p id="sort-by">Sort by :
-          <a href="#" class="label label-primary" data-sort="date">Date</a>
-          <a href="#" class="label label-default" data-sort="name">Name</a>
-        </p>
-        <ul class="list-group"></ul>
-
-        <footer>
-          <div id="repo-count"></div>
-        </footer>
-      </section>
-    </div>
+    <div id="app"></div>
   </div>
+  <!-- <header> -->
+  <!--   <h1>Repositories</h1> -->
+  <!-- </header> -->
 
-  <script src="/static/vendor/jquery-1.11.1.min.js"></script>
+  <!-- <section id="main"> -->
+  <!--   <ul id="repo-list"></ul> -->
+  <!-- </section> -->
+
+  <!-- <footer> -->
+  <!--   <div id="repo-count"></div> -->
+  <!-- </footer> -->
+
+  <script src="/static/vendor/zepto.min.js"></script>
+  <!-- <script src="/static/vendor/jquery.js"></script> -->
+  <!-- <script src="/static/vendor/bootstrap.min.js"></script> -->
+  <script src="/static/vendor/pretty.js"></script>
+  <script src="/static/vendor/react.js"></script>
+  <!-- <script src="/static/vendor/JSXTransformer.js"></script> -->
   <script src="/static/vendor/underscore.js"></script>
-  <script src="/static/vendor/backbone.js"></script>
-  <script src="/static/vendor/handlebars-v1.3.0.min.js"></script>
-  <script src="/static/app.js"></script>
-
-  <!-- Templates -->
-
-  <script type="text/x-handlebars-template" id="item-template">
-    <a href="{{ url }}">{{ name }}</a>
-    <span class="badge">{{ rev }}</span>
-    <p class="text-muted list-group-item-text">
-      <span class="author">{{ author }}</span> à
-      <span class="date">{{ date }}</span>
-    </p>
-  </script>
-
-  <script type="text/x-handlebars-template" id="stats-template">
-    <div class="repo-count">
-      <b>{{ count }}</b> repositories
-    </div>
-  </script>
-
+  <!-- <script type="text/jsx" src="/static/app.js"></script> -->
+  <script src="/static/build/app.js"></script>
   </body>
 </html>
