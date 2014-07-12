@@ -3,7 +3,10 @@
 *.egg-info
 .coverage
 .tox
+app.ini
 dist
 build
 eggs
 htmlcov
+bower_components
+node_modules
