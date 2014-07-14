@@ -3,6 +3,7 @@
 var $ = require('jquery');
 var _ = require('underscore');
 var React = require('react');
+var prettyDate = require('./vendor/pretty');
 
 $(function(){
   'use strict';
