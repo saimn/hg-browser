@@ -1,12 +1,12 @@
-// var browserify = require('gulp-browserify');
+var browserify = require('gulp-browserify');
 var clean = require('gulp-clean');
 var gulp = require('gulp');
 var react = require('gulp-react');
-// var rename = require('gulp-rename');
-// var uglify = require('gulp-uglify');
+var rename = require('gulp-rename');
+var uglify = require('gulp-uglify');
 
 gulp.task('default', ['clean'], function() {
-  return gulp.start('react');
+  return gulp.start('browserify');
 });
 
 gulp.task('clean', function() {
@@ -39,15 +39,15 @@ gulp.task('javascript', function() {
     .pipe(gulp.dest('static/build/js/'));
 });
 
-// gulp.task('browserify', ['javascript'], function() {
-//   return gulp.src('static/build/app.js')
-//     .pipe(browserify({transform: ['envify']}))
-//     .pipe(rename('compiled.js'))
-//     .pipe(gulp.dest('static/build/'))
-//     .pipe(uglify())
-//     .pipe(rename({suffix: '.min'}))
-//     .pipe(gulp.dest('static/build/'));
-// });
+gulp.task('browserify', function() {
+  return gulp.src('static/build/app.js')
+    .pipe(browserify({transform: ['reactify']}))
+    .pipe(rename('compiled.js'))
+    .pipe(gulp.dest('static/build/'))
+    .pipe(uglify())
+    .pipe(rename({suffix: '.min'}))
+    .pipe(gulp.dest('static/build/'));
+});
 
 // var less = require('gulp-less');
 // var minifycss = require('gulp-minify-css');

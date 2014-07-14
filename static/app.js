@@ -1,6 +1,12 @@
 /** @jsx React.DOM */
 
+var $ = require('jquery');
+var _ = require('underscore');
+var React = require('react');
+
 $(function(){
+  'use strict';
+
   var ReposBox = React.createClass({
     getInitialState: function() {
       return {data: []};
