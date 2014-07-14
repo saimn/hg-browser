@@ -1,9 +1,11 @@
-var browserify = require('gulp-browserify');
+var browserify = require('browserify');
 var clean = require('gulp-clean');
 var gulp = require('gulp');
 var react = require('gulp-react');
-var rename = require('gulp-rename');
+// var rename = require('gulp-rename');
+var source = require('vinyl-source-stream');
 var uglify = require('gulp-uglify');
+var watchify = require('watchify');
 
 gulp.task('default', ['clean'], function() {
   return gulp.start('browserify');
@@ -20,33 +22,32 @@ gulp.task('react', function(){
     .pipe(gulp.dest('static/build/'));
 });
 
-gulp.task('watch', ['clean'], function() {
-  var watching = false;
-  gulp.start('react', function() {
-    if (!watching) {
-      watching = true;
-      // gulp.watch('static/**/*.js', ['javascript']);
-    }
-  });
-});
-
-gulp.task('javascript', function() {
-  return gulp.src('static/**/*.js')
-    .pipe(react())
-    .pipe(gulp.dest('static/build/js/'))
-    .pipe(uglify())
-    .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest('static/build/js/'));
-});
-
 gulp.task('browserify', function() {
-  return gulp.src('static/build/app.js')
-    .pipe(browserify({transform: ['reactify']}))
-    .pipe(rename('compiled.js'))
-    .pipe(gulp.dest('static/build/'))
-    .pipe(uglify())
-    .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest('static/build/'));
+  return browserify('./static/app.js')
+  .bundle({debug: true})
+  .on('error', function (err) {
+    console.log(err.toString());
+    this.emit("end");
+  })
+  .pipe(source('app.js'))
+  .pipe(gulp.dest('./static/build'));
+});
+
+gulp.task('watch', function() {
+  var bundler = watchify('./static/app.js');
+  bundler.transform('reactify');
+  bundler.on('update', rebundle);
+
+  function rebundle () {
+    return bundler.bundle()
+      .on('error', function(e) {
+        console.log('Browserify Error', e);
+      })
+      .pipe(source('app.js'))
+      .pipe(gulp.dest('./static/build'));
+  }
+
+  return rebundle();
 });
 
 // var less = require('gulp-less');
