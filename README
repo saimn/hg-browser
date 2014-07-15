@@ -1,0 +1,11 @@
+# Mercurial Browser
+
+This is currently just a small experiment to play with React (and Backbone
+before) and a REST server with bottle, to visualize commits from a Mercurial
+repository.
+
+The Mercurial repositories must be listed in a `app.ini` file:
+
+    [repos]
+    hg-prompt = ~/lib/hg-prompt
+    mercurial-cli-templates = ~/lib/mercurial-cli-templates

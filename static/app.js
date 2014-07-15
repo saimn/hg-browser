@@ -1,5 +1,11 @@
 /** @jsx React.DOM */
 
+/**
+ * Mercurial browser.
+ * Copyright (c) 2014 - Simon Conseil
+ * Licensed under the MIT license.
+ */
+
 var $ = require('jquery');
 var _ = require('underscore');
 var React = require('react');
