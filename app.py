@@ -21,7 +21,9 @@
 # IN THE SOFTWARE.
 
 import bottle
+import click
 import hglib
+
 from os.path import dirname, join
 from pprint import pprint
 from bottle import route, run, request, static_file
@@ -32,10 +34,7 @@ from bottle import route, run, request, static_file
 # out = REPO._parserevs(out.split('\0')[:-1])
 
 app = bottle.Bottle()
-app.config.load_config('app.ini')
-
-repos = {k.split('.', 1)[-1]: hglib.open(app.config[k])
-         for k in app.config.keys() if k.startswith('repos.')}
+repos = {}
 
 
 def rev_to_dict(revision):
@@ -113,15 +112,32 @@ def tags(repository):
                      for t in repos[repository].tags()]}
 
 
-if __name__ == '__main__':
-    # from bottle_debugtoolbar import DebugToolbarPlugin
+@click.command()
+@click.option('--config', '-c', default='app.ini', help='Configuration file.')
+@click.option('--port', '-p', default=8080, help='Port for the web server')
+@click.option('--host', '-h', default='localhost',
+              help='Host for the web server')
+@click.option('--debug', '-d', default=True, is_flag=True, help='Debug mode')
+@click.option('--reloader', '-r', default=True, is_flag=True,
+              help='Reloader mode')
+def main(config, port, host, debug, reloader):
+    """Start the Mercurial browser."""
+    app.config.load_config(config)
+    print "Loading repositories ..."
+    global repos
+    repos = {k.split('.', 1)[-1]: hglib.open(app.config[k])
+             for k in app.config.keys() if k.startswith('repos.')}
+    pprint(repos)
 
+    run(host=host, port=port, debug=debug, reloader=reloader)
+
+if __name__ == '__main__':
+    main()
+
+    # from bottle_debugtoolbar import DebugToolbarPlugin
     # config = {
     #     'DEBUG_TB_ENABLED': True,
     #     'DEBUG_TB_INTERCEPT_REDIRECTS': True,
     # }
     # plugin = DebugToolbarPlugin(config)
     # bottle.install(plugin)
-
-    # bottle.debug(True)
-    run(host='localhost', port=8080, debug=True, reloader=True)
